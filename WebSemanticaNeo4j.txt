@@ -1,0 +1,78 @@
+create(a:Professor {name: 'Prof. Marcos'})
+create(b:Professor {name: 'Prof. Mariana'})
+create(c:Professor {name: 'Prof. Beatriz'})
+
+create(a:Aluno {name: 'Aluno Pedro'})
+create(b:Aluno {name: 'Aluna Julia'})
+create(c:Aluno {name: 'Aluno Marcelo'})
+
+create(a:Disciplina {name: 'Matemática'})
+create(b:Disciplina {name: 'Biologia'})
+
+create(a:Turma {name: 'Turma A'})
+create(a:Turma {name: 'Turma B'})
+
+MATCH
+ (a:Professor),
+ (b:Disciplina)
+WHERE a.name = 'Prof. Mariana' AND b.name = 'Biologia'
+    CREATE (a)-[r:Leciona]->(b)
+return type(r)
+
+MATCH
+ (a:Professor),
+ (b:Disciplina)
+WHERE a.name = 'Prof. Marcos' AND b.name = 'Matemática'
+    CREATE (a)-[r:Leciona]->(b)
+return type(r)
+
+
+MATCH
+ (a:Professor),
+ (b:Disciplina)
+WHERE a.name = 'Prof. Beatriz' AND b.name = 'Biologia'
+    CREATE (a)-[r:Leciona]->(b)
+return type(r)
+
+MATCH
+ (a:Professor),
+ (b:Turma)
+WHERE a.name = 'Prof. Mariana' AND b.name = 'Turma A'
+    CREATE (a)-[r:DaAulaEm]->(b)
+return type(r)
+
+MATCH
+ (a:Professor),
+ (b:Turma)
+WHERE a.name = 'Prof. Marcos' AND b.name = 'Turma A'
+    CREATE (a)-[r:DaAulaEm]->(b)
+return type(r)
+
+
+MATCH
+ (a:Professor),
+ (b:Turma)
+WHERE a.name = 'Prof. Beatriz' AND b.name = 'Turma B'
+    CREATE (a)-[r:DaAulaEm]->(b)
+return type(r)
+
+MATCH
+ (a:Aluno),
+ (b:Turma)
+WHERE a.name = 'Aluno Pedro' AND b.name = 'Turma A'
+    CREATE (a)-[r:Matriculado]->(b)
+return type(r)
+
+MATCH
+ (a:Aluno),
+ (b:Turma)
+WHERE a.name = 'Aluna Julia' AND b.name = 'Turma A'
+    CREATE (a)-[r:Matriculado]->(b)
+return type(r)
+
+MATCH
+ (a:Aluno),
+ (b:Turma)
+WHERE a.name = 'Aluno Marcelo' AND b.name = 'Turma B'
+    CREATE (a)-[r:Matriculado]->(b)
+return type(r)
